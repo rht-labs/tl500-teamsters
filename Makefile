@@ -6,7 +6,7 @@ IMG := $(REPOSITORY):latest
 
 # clean compile
 compile:
-	mvn -s settings.xml clean package -DskipTests
+	mvn clean package -DskipTests
 
 # Podman Login
 podman-login:
