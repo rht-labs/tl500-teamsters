@@ -14,11 +14,11 @@ podman-login:
 
 # Build the oci image no compile
 podman-build-nocompile:
-	podman build --no-cache . -t ${IMG} -f src.main/docker/Dockerfile.jvm
+	podman build --no-cache . -t ${IMG} -f src/main/docker/Dockerfile.jvm
 
 # Build the oci image
 podman-build: compile
-	podman build . -t ${IMG} -f Dockerfile.jvm
+	podman build . -t ${IMG} -f src/main/docker/Dockerfile.jvm
 
 # Push the oci image
 podman-push: podman-build
