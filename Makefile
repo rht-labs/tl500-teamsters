@@ -1,23 +1,12 @@
 # Image URL to use all building/pushing image targets
 REGISTRY ?= quay.io
-REPOSITORY ?= $(REGISTRY)/petbattle/pet-battle-api
+REPOSITORY ?= $(REGISTRY)/eformat/tl500-teamsters
 
 IMG := $(REPOSITORY):latest
-
-# Native image compile - FIXME
-# Image Scaling (Scalr.java)
-# native compile works, but does not run
-# broken because Image.io not in graal yet - https://github.com/quarkusio/quarkus/issues/8605
-# -P native
-# Dockerfile.native
 
 # clean compile
 compile:
 	mvn -s settings.xml clean package -DskipTests
-
-# test
-test:
-	mvn -s settings.xml clean test
 
 # Podman Login
 podman-login:
@@ -25,7 +14,7 @@ podman-login:
 
 # Build the oci image no compile
 podman-build-nocompile:
-	podman build --no-cache . -t ${IMG} -f Dockerfile.jvm
+	podman build --no-cache . -t ${IMG} -f src.main/docker/Dockerfile.jvm
 
 # Build the oci image
 podman-build: compile
@@ -42,14 +31,3 @@ podman-push-nocompile: podman-build-nocompile
 # Just Push the oci image
 podman-push-nobuild:
 	podman push ${IMG}
-
-podman-run:
-	podman-compose -f docker-compose.yml up -d
-
-podman-stop:
-	podman-compose -f docker-compose.yml down
-
-# JReleaser - for jar file loading into openshift
-release:
-	mvn clean package -Dquarkus.package.type=uber-jar -DskipTests
-	mvn -Prelease jreleaser:full-release
