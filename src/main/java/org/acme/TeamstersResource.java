@@ -34,7 +34,7 @@ public class TeamstersResource {
     @ConfigProperty(name = "CLUSTER_DOMAIN", defaultValue = "apps.openshift-cluster.com")
     String clusterDomain;
 
-    @ConfigProperty(name = "GIT_SERVER", defaultValue = "gitlab-ce.apps.apps.openshift-cluster.com")
+    @ConfigProperty(name = "GIT_SERVER", defaultValue = "gitlab-ce.apps.openshift-cluster.com")
     String gitServer;
 
     @ConfigProperty(name = "GITLAB_USER", defaultValue = "user")
