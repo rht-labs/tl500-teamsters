@@ -1,0 +1,19 @@
+<div class="modalenabled">
+    <br/>
+    <p>🤯 Nuke a Team from Orbit - this will delete <strong>all</strong> team content from the cluster including git content.</p>
+    <form action="/teamsters/nuke/" method="POST" name="nukeForm" up-target=".container" enctype="multipart/form-data">
+        <div class="form-row align-items-center">
+            {#include environment-section.html}{/include}
+
+            <button type="submit" class="btn btn-primary">Destroy</button>
+        </div>
+    </form>
+
+    {#for team in page.nukedTeams}
+    <div class="col-auto my-1" up-target=".container">
+        <p>💥 Team <strong>{team}</strong> now being deleted ... 💥</p>
+    </div>
+    {/for}
+
+    {#include clear-nuke-messages-section.html}{/include}
+</div>

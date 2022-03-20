@@ -1,0 +1,27 @@
+<div>
+    <br/>
+    <p>🌴 Create new Team content. Provide the exercise to provision. This will <strong>delete</strong> any content for that team!</p>
+    <form action="/teamsters/create/" method="POST" name="nukeForm" up-target=".container" enctype="multipart/form-data">
+        <div class="form-row align-items-center">
+            <div class="input-group mb-3 form-inline">
+                <span class="input-group-text">Exercise</span>
+                <select class="custom-select" name="exercise" id="exercise">
+                    {#for ex in exercises}
+                    <option value="{ex}" {#if page.exercise == ex}selected{/if}>{ex}</option>
+                    {/for}
+                </select>
+            </div>
+            {#include environment-section.html}{/include}
+
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+
+    {#for team in page.createdTeams}
+    <div class="col-auto my-1" id="created-messages" up-target=".container">
+        <p>✅ Team <strong>{team}</strong> now being created ... ✅</p>
+    </div>
+    {/for}
+
+    {#include clear-created-messages-section.html}{/include}
+</div>

@@ -1,0 +1,13 @@
+{#include base.html}
+{#contents}
+{#if show == "nuke"}
+{#include nuke-section.html}{/include}
+{/if}
+{#if show == "create"}
+{#include create-section.html}{/include}
+{/if}
+{#if show == null}
+{#include introduction-section.html}{/include}
+{/if}
+{/contents}
+{/include}
