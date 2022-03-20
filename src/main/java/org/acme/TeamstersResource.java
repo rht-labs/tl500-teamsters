@@ -16,8 +16,10 @@ import org.jboss.resteasy.reactive.MultipartForm;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -49,6 +51,9 @@ public class TeamstersResource {
     @ConfigProperty(name = "OCP_ADMIN_PASSWORD", defaultValue = "password")
     String ocpAdminPassword;
 
+    @ConfigProperty(name = "FORCE_HTTPS", defaultValue = "false")
+    boolean forceHttps;
+
     private final Template page;
     private PageData pd = new PageData();
 
@@ -76,7 +81,7 @@ public class TeamstersResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
     @Path("/nuke")
-    public Response nuke(@MultipartForm BaseForm form) {
+    public Response nuke(@MultipartForm BaseForm form, @Context UriInfo info) {
         pd.nukedTeams.add(form.teamName);
         try {
             nukeIt(form);
@@ -85,8 +90,9 @@ public class TeamstersResource {
         } catch (ApiException e) {
             e.printStackTrace();
         }
+        URI uri = info.getBaseUriBuilder().scheme((forceHttps) ? "https" : "http").path("teamsters").queryParam("show", "nuke").build();
         return Response.status(301)
-                .location(URI.create("/teamsters?show=nuke"))
+                .location(uri)
                 .build();
     }
 
@@ -94,7 +100,7 @@ public class TeamstersResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
     @Path("/create")
-    public Response create(@MultipartForm BaseForm form) {
+    public Response create(@MultipartForm BaseForm form, @Context UriInfo info) {
         pd.createdTeams.add(form.teamName);
         try {
             createIt(form);
@@ -103,26 +109,29 @@ public class TeamstersResource {
         } catch (ApiException e) {
             e.printStackTrace();
         }
+        URI uri = info.getBaseUriBuilder().scheme((forceHttps) ? "https" : "http").path("teamsters").queryParam("show", "create").build();
         return Response.status(301)
-                .location(URI.create("/teamsters?show=create"))
+                .location(uri)
                 .build();
     }
 
     @POST
     @Path("/clear-created")
-    public Response clearCreated() {
+    public Response clearCreated(@Context UriInfo info) {
         pd.createdTeams.clear();
+        URI uri = info.getBaseUriBuilder().scheme((forceHttps) ? "https" : "http").path("teamsters").queryParam("show", "create").build();
         return Response.status(301)
-                .location(URI.create("/teamsters?show=create"))
+                .location(uri)
                 .build();
     }
 
     @POST
     @Path("/clear-nuked")
-    public Response clearNuked() {
+    public Response clearNuked(@Context UriInfo info) {
         pd.nukedTeams.clear();
+        URI uri = info.getBaseUriBuilder().scheme((forceHttps) ? "https" : "http").path("teamsters").queryParam("show", "nuke").build();
         return Response.status(301)
-                .location(URI.create("/teamsters?show=nuke"))
+                .location(uri)
                 .build();
     }
 
