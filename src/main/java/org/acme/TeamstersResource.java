@@ -13,7 +13,6 @@ import io.quarkus.qute.TemplateInstance;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.reactive.MultipartForm;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
