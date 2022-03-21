@@ -1,5 +1,7 @@
 # tl500-teamsters
 
+A Quarkus Qute, k8s-api based application to help "fast forward" TL500 teams. 
+
 ![images/teamster-intro.png](images/teamster-intro.png)
 
 ![images/teamster-nuke.png](images/teamster-nuke.png)
