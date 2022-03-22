@@ -21,8 +21,6 @@ export OCP_ADMIN_USER=         # ocp cluster-admin user
 export OCP_ADMIN_PASSWORD=     # ocp cluster-admin password
 ```
 
-Please URL encode any passwords first.
-
 ## Run
 
 ```bash
