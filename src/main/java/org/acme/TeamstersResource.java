@@ -22,6 +22,7 @@ import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,7 +57,7 @@ public class TeamstersResource {
     private final Template page;
     private PageData pd = new PageData();
 
-    final List<Integer> exercises = IntStream.range(1, 6).boxed().collect(Collectors.toList());
+    final List<String> exercises = Arrays.asList("1", "1+2", "2", "3", "4", "5", "6");
 
     public TeamstersResource(Template page) {
         this.page = requireNonNull(page, "page is required");
@@ -201,7 +202,7 @@ public class TeamstersResource {
         CoreV1Api api = new CoreV1Api();
 
         List<V1EnvVar> envVars = getEnvVars(form);
-        envVars.add(new V1EnvVar().name("EXERCISE").value(Integer.toString(form.exercise)));
+        envVars.add(new V1EnvVar().name("EXERCISE").value(form.exercise));
 
         V1Pod pod = new V1PodBuilder()
                 .withNewMetadata()

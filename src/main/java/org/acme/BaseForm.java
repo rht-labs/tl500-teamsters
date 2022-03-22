@@ -26,5 +26,5 @@ public class BaseForm {
     String ocpAdminPassword;
 
     public @FormParam("exercise")
-    int exercise;
+    String exercise;
 }
