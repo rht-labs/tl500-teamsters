@@ -29,10 +29,16 @@ mvn quarkus:dev
 
 ## OpenShift / k8s
 
+Add helm chart repo
+
+```bash
+helm repo add tl500-teamsters https://rht-labs.com/tl500-teamsters
+```
+
 Export the env.vars and use helm to install:
 
 ```bash
-helm upgrade --install tl500-teamsters eformat/tl500-teamsters --namespace teamsters-test --create-namespace \
+helm upgrade --install tl500-teamsters tl500-teamsters/tl500-teamsters --namespace teamsters-test --create-namespace \
   --set=clusterDomain=${CLUSTER_DOMAIN} \
   --set=gitServer=${GIT_SERVER} \
   --set=gitlabUser=${GITLAB_USER} \
