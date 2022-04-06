@@ -27,25 +27,16 @@ export OCP_ADMIN_PASSWORD=     # ocp cluster-admin password
 mvn quarkus:dev
 ```
 
-## OpenShift
+## OpenShift / k8s
+
+Export the env.vars and use helm to install:
 
 ```bash
-oc new-project tl500-teamsters
-source ~/tmp/tech-env-test.sh
-oc delete secret teamsters
-oc create secret generic teamsters \
-  --from-literal=CLUSTER_DOMAIN=${CLUSTER_DOMAIN} \
-  --from-literal=GIT_SERVER=${GIT_SERVER} \
-  --from-literal=GITLAB_USER=${GITLAB_USER} \
-  --from-literal=GITLAB_PASSWORD=${GITLAB_PASSWORD} \
-  --from-literal=OCP_ADMIN_USER=${OCP_ADMIN_USER} \
-  --from-literal=OCP_ADMIN_PASSWORD=${OCP_ADMIN_PASSWORD} \
-  --from-literal=FORCE_HTTPS=true
-oc new-app quay.io/eformat/tl500-teamsters --name teamsters
-oc set env --from=secret/teamsters deployments/teamsters
-oc expose svc teamsters
-oc patch route/teamsters --type=json -p '[{"op":"add", "path":"/spec/tls", "value":{"termination":"edge","insecureEdgeTerminationPolicy":"Redirect"}}]'
-oc create serviceaccount teamsters
-oc patch deployment teamsters --patch '{"spec":{"template":{"spec":{"serviceAccountName": "teamsters"}}}}'
-oc adm policy add-cluster-role-to-user edit system:serviceaccount:tl500-teamsters:teamsters -n tl500
+helm upgrade --install tl500-teamsters eformat/tl500-teamsters --namespace teamsters-test --create-namespace \
+  --set=clusterDomain=${CLUSTER_DOMAIN} \
+  --set=gitServer=${GIT_SERVER} \
+  --set=gitlabUser=${GITLAB_USER} \
+  --set=gitlabPassword=${GITLAB_PASSWORD} \
+  --set=ocpAdminUser=${OCP_ADMIN_USER} \
+  --set=ocpAdminPassword=${OCP_ADMIN_PASSWORD}
 ```
