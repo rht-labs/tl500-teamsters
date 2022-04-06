@@ -35,8 +35,6 @@ pom.xml.versionsBackup
 release.properties
 
 Chart.lock
-*.tgz
-*.tar.gz
 .factorypath
 .allure
 allure-results
