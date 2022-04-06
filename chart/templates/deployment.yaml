@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tl500-teamsters.fullname" . }}
+  labels:
+    {{- include "tl500-teamsters.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "tl500-teamsters.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "tl500-teamsters.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "tl500-teamsters.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - env:
+            - name: OCP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: OCP_ADMIN_PASSWORD
+                  name: {{ include "tl500-teamsters.fullname" . }}
+            - name: OCP_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  key: OCP_ADMIN_USER
+                  name: {{ include "tl500-teamsters.fullname" . }}
+            - name: CLUSTER_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  key: CLUSTER_DOMAIN
+                  name: {{ include "tl500-teamsters.fullname" . }}
+            - name: FORCE_HTTPS
+              valueFrom:
+                secretKeyRef:
+                  key: FORCE_HTTPS
+                  name: {{ include "tl500-teamsters.fullname" . }}
+            - name: GITLAB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: GITLAB_PASSWORD
+                  name: {{ include "tl500-teamsters.fullname" . }}
+            - name: GITLAB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: GITLAB_USER
+                  name: {{ include "tl500-teamsters.fullname" . }}
+            - name: GIT_SERVER
+              valueFrom:
+                secretKeyRef:
+                  key: GIT_SERVER
+                  name: {{ include "tl500-teamsters.fullname" . }}
+          name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

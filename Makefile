@@ -1,6 +1,6 @@
 # Image URL to use all building/pushing image targets
 REGISTRY ?= quay.io
-REPOSITORY ?= $(REGISTRY)/eformat/tl500-teamsters
+REPOSITORY ?= $(REGISTRY)/rht-labs/tl500-teamsters
 
 IMG := $(REPOSITORY):latest
 

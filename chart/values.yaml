@@ -1,0 +1,43 @@
+# Default values for tl500-teamsters.
+replicaCount: 1
+image:
+  repository: quay.io/rht-labs/tl500-teamsters
+  pullPolicy: IfNotPresent
+  tag: "latest"
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+service:
+  type: ClusterIP
+  port: 8080
+# OpenShift objects
+route: true
+ingress:
+  enabled: false
+resources: {}
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+nodeSelector: {}
+tolerations: []
+affinity: {}
+# namespace where we can create pods
+tl500Namespace: tl500
+# Teamsters env vars, override these using --set
+clusterDomain: ""
+gitServer: ""
+teamName: ""
+gitlabUser: ""
+gitlabPassword: ""
+ocpAdminUser: ""
+ocpAdminPassword: ""
+forceHttps: "true"
