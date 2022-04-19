@@ -2,8 +2,25 @@ apiVersion: v1
 entries:
   tl500-teamsters:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2022-04-19T11:26:19.558562717+10:00"
+    description: A Helm chart for Kubernetes
+    digest: 4d58e7d788575a1b06af286c80c39ba088ffbc939881eece1bca2c3b809cb572
+    home: https://rht-labs/tl500-teamsters/helm-charts
+    icon: https://avatars1.githubusercontent.com/u/68044996?s=200&v=4
+    keywords:
+    - devops
+    - testing
+    maintainers:
+    - name: eformat
+    name: tl500-teamsters
+    type: application
+    urls:
+    - https://rht-labs/tl500-teamsters/helm-charts/tl500-teamsters-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
-    created: "2022-04-06T12:37:47.170394658+01:00"
+    created: "2022-04-19T11:26:19.557362195+10:00"
     description: A Helm chart for Kubernetes
     digest: 5e7f44ae9cd081195c795c3d452573e6f7ea5a772b4d94f9a5469a6f1b94114c
     home: https://rht-labs/tl500-teamsters/helm-charts
@@ -16,6 +33,6 @@ entries:
     name: tl500-teamsters
     type: application
     urls:
-    - https://rht-labs.com/tl500-teamsters/tl500-teamsters-0.0.1.tgz
+    - https://rht-labs/tl500-teamsters/helm-charts/tl500-teamsters-0.0.1.tgz
     version: 0.0.1
-generated: "2022-04-06T12:37:47.169871389+01:00"
+generated: "2022-04-19T11:26:19.55625567+10:00"
