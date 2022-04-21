@@ -3,7 +3,7 @@ entries:
   tl500-teamsters:
   - apiVersion: v2
     appVersion: 0.0.2
-    created: "2022-04-22T08:24:27.422562932+10:00"
+    created: "2022-04-22T08:27:44.017545872+10:00"
     description: A Helm chart for Kubernetes
     digest: 4d58e7d788575a1b06af286c80c39ba088ffbc939881eece1bca2c3b809cb572
     home: https://rht-labs/tl500-teamsters/helm-charts
@@ -16,11 +16,11 @@ entries:
     name: tl500-teamsters
     type: application
     urls:
-    - https://rht-labs.com/tl500-teamsters/helm-charts/tl500-teamsters-0.0.2.tgz
+    - https://rht-labs.com/tl500-teamsters/tl500-teamsters-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2022-04-22T08:24:27.421724817+10:00"
+    created: "2022-04-22T08:27:44.015436847+10:00"
     description: A Helm chart for Kubernetes
     digest: 5e7f44ae9cd081195c795c3d452573e6f7ea5a772b4d94f9a5469a6f1b94114c
     home: https://rht-labs/tl500-teamsters/helm-charts
@@ -33,6 +33,6 @@ entries:
     name: tl500-teamsters
     type: application
     urls:
-    - https://rht-labs.com/tl500-teamsters/helm-charts/tl500-teamsters-0.0.1.tgz
+    - https://rht-labs.com/tl500-teamsters/tl500-teamsters-0.0.1.tgz
     version: 0.0.1
-generated: "2022-04-22T08:24:27.419550141+10:00"
+generated: "2022-04-22T08:27:44.014339761+10:00"
