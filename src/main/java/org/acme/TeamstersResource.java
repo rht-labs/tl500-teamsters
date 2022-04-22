@@ -21,10 +21,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -33,23 +30,23 @@ import static java.util.Objects.requireNonNull;
 @Path("/teamsters")
 public class TeamstersResource {
 
-    @ConfigProperty(name = "CLUSTER_DOMAIN", defaultValue = "apps.openshift-cluster.com")
-    String clusterDomain;
+    @ConfigProperty(name = "CLUSTER_DOMAIN")
+    Optional<String> clusterDomain;
 
-    @ConfigProperty(name = "GIT_SERVER", defaultValue = "gitlab-ce.apps.openshift-cluster.com")
-    String gitServer;
+    @ConfigProperty(name = "GIT_SERVER")
+    Optional<String> gitServer;
 
-    @ConfigProperty(name = "GITLAB_USER", defaultValue = "user")
-    String gitUser;
+    @ConfigProperty(name = "GITLAB_USER")
+    Optional<String> gitUser;
 
-    @ConfigProperty(name = "GITLAB_PASSWORD", defaultValue = "password")
-    String gitPassword;
+    @ConfigProperty(name = "GITLAB_PASSWORD")
+    Optional<String> gitPassword;
 
-    @ConfigProperty(name = "OCP_ADMIN_USER", defaultValue = "admin")
-    String ocpAdminUser;
+    @ConfigProperty(name = "OCP_ADMIN_USER")
+    Optional<String> ocpAdminUser;
 
-    @ConfigProperty(name = "OCP_ADMIN_PASSWORD", defaultValue = "password")
-    String ocpAdminPassword;
+    @ConfigProperty(name = "OCP_ADMIN_PASSWORD")
+    Optional<String> ocpAdminPassword;
 
     @ConfigProperty(name = "FORCE_HTTPS", defaultValue = "false")
     boolean forceHttps;
@@ -66,12 +63,12 @@ public class TeamstersResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get(@QueryParam(value = "show") String show) {
-        pd.clusterDomain = clusterDomain;
-        pd.gitServer = gitServer;
-        pd.gitUser = gitUser;
-        pd.gitPassword = gitPassword;
-        pd.ocpAdminUser = ocpAdminUser;
-        pd.ocpAdminPassword = ocpAdminPassword;
+        pd.clusterDomain = clusterDomain.orElse("apps.openshift-cluster.com");
+        pd.gitServer = gitServer.orElse("gitlab-ce.apps.openshift-cluster.com");
+        pd.gitUser = gitUser.orElse("user");
+        pd.gitPassword = gitPassword.orElse("password");
+        pd.ocpAdminUser = ocpAdminUser.orElse("admin");
+        pd.ocpAdminPassword = ocpAdminPassword.orElse("password");
         return page.data("exercises", exercises)
                 .data("page", pd)
                 .data("show", show);
