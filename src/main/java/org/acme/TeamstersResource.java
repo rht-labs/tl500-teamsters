@@ -10,20 +10,18 @@ import io.kubernetes.client.openapi.models.V1PodBuilder;
 import io.kubernetes.client.util.Config;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.reactive.MultipartForm;
 
-import javax.transaction.Transactional;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static java.util.Objects.requireNonNull;
 
@@ -184,7 +182,7 @@ public class TeamstersResource {
         }
         V1Pod createResult;
         try {
-            createResult = api.createNamespacedPod("tl500", pod, null, null, null);
+            createResult = api.createNamespacedPod("tl500", pod, null, null, null, null);
         } catch (ApiException e) {
             System.out.println("Caught exception " + e.getCode());
             return;
@@ -236,7 +234,7 @@ public class TeamstersResource {
         }
         V1Pod createResult;
         try {
-            createResult = api.createNamespacedPod("tl500", pod, null, null, null);
+            createResult = api.createNamespacedPod("tl500", pod, null, null, null, null);
         } catch (ApiException e) {
             System.out.println("Caught exception " + e.getCode());
             return;
