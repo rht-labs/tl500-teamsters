@@ -46,7 +46,7 @@ jobs:
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.TAGS }}
           containerfiles: |
-            ./src/main/Dockerfile.jvm
+            ./src/main/docker/Dockerfile.jvm
 
       # Login to Registry
       - name: Log in to the Container registry
